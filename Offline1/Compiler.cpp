@@ -31,27 +31,26 @@ class Compiler{
         stringstream ss(line); 
         char delimeter = ' '; 
         string word; 
-        int count = 1; 
+        int count = 0; 
         string words[100];  // assuming max words 100. if found better solution, this should be modified... 
         while(getline(ss,word,delimeter)){
             words[count++] = word;
         }
-
         string wordType = words[2];
+        cout<<wordType<<endl; 
 
         if (wordType == "FUNCTION") {
-            string name = words[1];
-        
-            // Join the rest of the words from words[3] to the end, separated by commas
+            string name = words[2];
+            cout<<"in function"<<endl; 
             stringstream ss;
-            for (int i = 3; i < count; ++i) {
+            for (int i = 4; i < count; ++i) {
                 ss << words[i];
                 if (i != count - 1) ss << ",";
             }
         
-            string type = words[2] + "," + ss.str();  // FUNCTION,int,float,... etc.
-            cout << "Name: " << name << endl;
-            cout << "Type: " << type << endl;
+            string type = words[2] + "," + words[3] + "<==" + "("+ ss.str() + ")";  
+            SymbolInfo* symbolInfo = new SymbolInfo(name,type); 
+            symbolTable->Insert(symbolInfo);
         
         } else if (wordType == "STRUCT") {
             // handle struct

@@ -13,6 +13,11 @@ class SymbolTable{
         this->currentScopeTable = new ScopeTable(size,to_string(scopeCounter)); 
        }
 
+
+       bool Insert(SymbolInfo* symbolInfo){
+        return currentScopeTable->insert(symbolInfo);
+       }
+
        void EnterScope(){
         this->scopeCounter++; 
         ScopeTable* newScopeTable = new ScopeTable(size,to_string(scopeCounter),currentScopeTable); 
