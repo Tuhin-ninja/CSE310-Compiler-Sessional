@@ -1,4 +1,4 @@
-#include "SymbolInfo.h"
+#include "SymbolInfo.hpp"
 
 
 class ScopeTable{
@@ -13,8 +13,9 @@ class ScopeTable{
        string id; 
        
     public : 
-    ScopeTable(int size, ScopeTable* parentScope = nullptr){
+    ScopeTable(int size,string id, ScopeTable* parentScope = nullptr){
         this->size = size; 
+        this->id = id; 
         this->parentScope = parentScope; 
         scopeVariables = new SymbolInfo*[size];
         for(int i=0;i<size;i++){
@@ -63,7 +64,47 @@ class ScopeTable{
         return true; 
     }
 
-    
+
+
+    SymbolInfo* lookUp(string symbol){
+        int index = SDBMHash(symbol) % this->size; 
+        SymbolInfo* temp = scopeVariables[index]; 
+
+        while(temp){
+            if(temp->getName() == symbol) return temp; 
+            temp = temp->getNextSymbol(); 
+        }
+
+        cout<<"Couldnt find the variable mentioned!"<<endl; 
+        return nullptr; 
+    }
+
+
+
+    bool Delete(string symbol){
+        int index = SDBMHash(symbol) % this->size; 
+        SymbolInfo* temp = scopeVariables[index]; 
+        SymbolInfo* prev = nullptr; 
+        while(temp){
+            if(temp->getName() == symbol){
+                if(prev == nullptr){
+                    scopeVariables[index] = temp->getNextSymbol(); 
+                }
+                else{
+                    prev->setNextSymbol(temp->getNextSymbol()); 
+                }
+                delete temp;
+                return true; 
+            }
+
+            prev = temp; 
+            temp = temp->getNextSymbol();
+        }
+
+        return false; 
+    }
+
+
 
     void printScopeVariables(){
         for(int i=0; i<this->size; i++){
@@ -84,19 +125,36 @@ class ScopeTable{
         }
     }
 
+
+    void setID(string id){
+        this->id = id; 
+    }
+
+    string getID(){
+        return this->id; 
+    }
+
+    void setParentScope(ScopeTable* parentScope){
+        this->parentScope = parentScope; 
+    }
+
+    ScopeTable* getParentScope(){
+        return parentScope;
+    }
+
+
+    ~ScopeTable(){
+        for(int i=0; i<this->size; i++){
+            SymbolInfo* temp = scopeVariables[i]; 
+            while(temp){
+                SymbolInfo* toDelete = temp; 
+                temp = temp->getNextSymbol(); 
+                delete toDelete; 
+            }
+        }
+        delete[] scopeVariables;
+    }
+
 }; 
 
 
-
-int main(){
-    ScopeTable* scopeTable = new ScopeTable(5);
-    SymbolInfo* symbolInfo1 = new SymbolInfo("a","int");
-    SymbolInfo* symbolInfo2 = new SymbolInfo("f","int");
-    SymbolInfo* symbolInfo3 = new SymbolInfo("d","int");
-    SymbolInfo* symbolInfo4 = new SymbolInfo("d","int");
-    scopeTable->insert(symbolInfo1);
-    scopeTable->insert(symbolInfo2); 
-    scopeTable->insert(symbolInfo3);
-    scopeTable->insert(symbolInfo4);
-    scopeTable->printScopeVariables();
-}
