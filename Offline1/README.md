@@ -1,0 +1,1 @@
+to execute run this : g++ Compiler.cpp OutputManager.cpp -o Compiler

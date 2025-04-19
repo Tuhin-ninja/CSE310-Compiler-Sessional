@@ -1,4 +1,7 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<string>
+#include<fstream>
+#include<sstream>
 using namespace std; 
 
 class SymbolInfo{
@@ -33,7 +36,8 @@ class SymbolInfo{
       void setNextSymbol(SymbolInfo* nextSymbol){
         this->nextSymbol = nextSymbol;
       }
-      void print(){
-        cout<<name<<" "<<type<<endl; 
+
+      string to_string(){
+        return "<"+this->name+","+this->type+">";
       }
 }; 

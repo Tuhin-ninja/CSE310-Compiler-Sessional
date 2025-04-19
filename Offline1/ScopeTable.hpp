@@ -1,4 +1,5 @@
 #include "SymbolInfo.hpp"
+#include "OutputManager.hpp"
 
 
 class ScopeTable{
@@ -11,9 +12,10 @@ class ScopeTable{
        ScopeTable* parentScope; 
        int size; 
        string id; 
+       ofstream& logout; 
        
     public : 
-    ScopeTable(int size,string id, ScopeTable* parentScope = nullptr){
+    ScopeTable(int size,string id, ofstream& outputFile,ScopeTable* parentScope = nullptr) : logout(outputFile){
         this->size = size; 
         this->id = id; 
         this->parentScope = parentScope; 
@@ -23,8 +25,8 @@ class ScopeTable{
         }
     }
 
-    unsigned int SDBMHash(string str) {
-        unsigned int hash = 0;
+    unsigned long SDBMHash(string str) {
+        long long hash = 0;
         unsigned int i = 0;
         unsigned int len = str.length();
     
@@ -37,31 +39,32 @@ class ScopeTable{
     }
 
     bool insert(SymbolInfo* symbolInfo){
-        int index = SDBMHash(symbolInfo->getName()) % this->size; 
-        cout<<index<<endl; 
+        long long index = SDBMHash(symbolInfo->getName()) % this->size; 
+        if(index < 0) index*=-1;
         SymbolInfo* temp = scopeVariables[index];
+        SymbolInfo* prev = nullptr; 
+        int count = 0;
         if(temp == nullptr){
             scopeVariables[index] = symbolInfo;
-            cout<<"New Bucket List created and Insertion was successful!"<<endl; 
-            return true; 
+            count++; 
+            logout<<"\t Inserted in ScopeTable# "<<id<<" at position "<<index+1<<", "<<count<<endl;
+            return true;
         }
-
-        while(temp->getNextSymbol() != nullptr){
-            if(temp->getName() == symbolInfo->getName()){
-                cout<<"The variable with the same name already exists!"<<endl;
-                return false; 
+        else{
+            while(temp){
+                count++;
+                if(temp->getName() == symbolInfo->getName()){
+                    logout<<"\t"<<symbolInfo->getName()<<" already exists in the current ScopeTable"<<endl;
+                    return false; 
+                }
+                prev = temp; 
+                temp = temp->getNextSymbol();
             }
-            temp = temp->getNextSymbol(); 
+            count++;
+            prev->setNextSymbol(symbolInfo);
+            logout<<"\t Inserted in ScopeTable# "<<id<<" at position "<<index+1<<", "<<count<<endl;
+            return true;
         }
-
-        if(temp->getName() == symbolInfo->getName()){
-            cout<<"The variable with the same name already exists!"<<endl;
-            return false; 
-        }
-
-        temp->setNextSymbol(symbolInfo); 
-        cout<<"Insertion Successful"<<endl;
-        return true; 
     }
 
 
@@ -69,13 +72,16 @@ class ScopeTable{
     SymbolInfo* lookUp(string symbol){
         int index = SDBMHash(symbol) % this->size; 
         SymbolInfo* temp = scopeVariables[index]; 
-
+        int count = 0;
         while(temp){
-            if(temp->getName() == symbol) return temp; 
+            count++;
+            if(temp->getName() == symbol) {
+                logout<<"\t"<<symbol <<" found in ScopeTable# "<<id<<" at position "<<index+1<<", "<<count<<endl;
+                return temp; 
+            }
             temp = temp->getNextSymbol(); 
         }
 
-        cout<<"Couldnt find the variable mentioned!"<<endl; 
         return nullptr; 
     }
 
@@ -85,7 +91,9 @@ class ScopeTable{
         int index = SDBMHash(symbol) % this->size; 
         SymbolInfo* temp = scopeVariables[index]; 
         SymbolInfo* prev = nullptr; 
+        int count = 0;
         while(temp){
+            count++;
             if(temp->getName() == symbol){
                 if(prev == nullptr){
                     scopeVariables[index] = temp->getNextSymbol(); 
@@ -94,6 +102,7 @@ class ScopeTable{
                     prev->setNextSymbol(temp->getNextSymbol()); 
                 }
                 delete temp;
+                logout<<"\tDeleted "<<symbol<<" from the ScopeTable# "<<id<<" at position "<<index+1<<", "<<count<<endl; 
                 return true; 
             }
 
@@ -101,27 +110,34 @@ class ScopeTable{
             temp = temp->getNextSymbol();
         }
 
+        logout<<"\tNot found in the current ScopeTable"<<endl;
         return false; 
     }
 
 
 
-    void printScopeVariables(){
+    void printScopeTable(int tab=0){
+        int tabs = tab;
+        while(tabs--){
+            logout<<"\t\t";
+        }
+        logout<<"\tScopeTable# "<<id<<endl; 
         for(int i=0; i<this->size; i++){
-            cout<<"bucket["<<i<<"]"<<" : ";
+            tabs = tab;
+            while(tabs--){
+                logout<<"\t\t";
+            }
+            logout<<"\t"<<i+1<<"--->"<<" ";
             printSingleList(i);
-            cout<<endl; 
+            logout<<endl; 
         }
     }
 
     void printSingleList(int index){
         SymbolInfo* temp = scopeVariables[index]; 
         while(temp){
-            cout<<"("<<temp->getName()<<" : "<<temp->getType()<<")"; 
-            temp = temp->getNextSymbol(); 
-            if(temp){
-                cout<<"->";
-            }
+            logout<<temp->to_string()<<" ";
+            temp = temp->getNextSymbol();
         }
     }
 
