@@ -39,6 +39,48 @@ class ScopeTable{
     }
 
     bool insert(SymbolInfo* symbolInfo){
+        // stringstream ss(line); 
+        // char delimeter = ' '; 
+        // string word; 
+        // int count = 0; 
+        // string words[100];  // assuming max words 100. if found better solution, this should be modified... 
+        // while(getline(ss,word,delimeter)){
+        //     words[count++] = word;
+        // }
+        // string wordType = words[2];
+        // cout<<wordType<<endl; 
+        // string name = words[1];
+        // string type; 
+
+        // if (wordType == "FUNCTION") {
+        //     stringstream ss;
+        //     for (int i = 4; i < count; ++i) {
+        //         ss << words[i];
+        //         if (i != count - 1) ss << ",";
+        //     }
+        
+        //     type = words[2] + "," + words[3] + "<==" + "("+ ss.str() + ")";  
+        //     cout<<type<<endl;
+        
+        // } else if (wordType == "STRUCT" || wordType == "UNION") {
+        //     stringstream ss;
+        //     for(int i=3; i<count;i+=2){
+        //         ss<<"("+words[i]+","+words[i+1]<<")";
+        //         if(i != count-2) ss<<",";
+        //     }
+
+        //     type = wordType+ ","+"{" + ss.str() + "}";
+
+        // } else{
+        //     type = words[2]; 
+        // }
+
+        // SymbolInfo* symbolInfo = new SymbolInfo(name,type);
+        // cout<<symbolInfo->to_string()<<endl; 
+        // symbolTable->Insert(symbolInfo);
+
+
+
         long long index = SDBMHash(symbolInfo->getName()) % this->size; 
         if(index < 0) index*=-1;
         SymbolInfo* temp = scopeVariables[index];
@@ -119,13 +161,13 @@ class ScopeTable{
     void printScopeTable(int tab=0){
         int tabs = tab;
         while(tabs--){
-            logout<<"\t\t";
+            logout<<"\t";
         }
         logout<<"\tScopeTable# "<<id<<endl; 
         for(int i=0; i<this->size; i++){
             tabs = tab;
             while(tabs--){
-                logout<<"\t\t";
+                logout<<"\t";
             }
             logout<<"\t"<<i+1<<"--->"<<" ";
             printSingleList(i);
