@@ -5,6 +5,7 @@
 #include "SymbolTable.hpp"
 #include "OutputManager.hpp"
 
+
 using namespace std;
 
 class Compiler{
@@ -12,8 +13,10 @@ class Compiler{
        ifstream in; 
        SymbolTable* symbolTable; 
        int commandCount;
+       string hashFunctionName;
     public : 
-    Compiler(string inputFile, string outputFile){
+    Compiler(string inputFile, string outputFile, string hashFunctionName){
+        this->hashFunctionName = hashFunctionName;
         in.open(inputFile); 
         initializeLogout(outputFile);
         this->commandCount = 0;
@@ -27,8 +30,8 @@ class Compiler{
             string line; 
             getline(this->in,line); 
          
-            symbolTable = new SymbolTable(stoi(line), logout);
-            logout<<"\tScopeTable# "<<symbolTable->getCurrentScope()->getID()<<" created!"<<endl;
+            symbolTable = new SymbolTable(stoi(line), logout, hashFunctionName);
+            logout<<"\tScopeTable# "<<symbolTable->getCurrentScope()->getID()<<" created"<<endl;
         }
     }
 
@@ -42,8 +45,13 @@ class Compiler{
         while(getline(ss,word,delimeter)){
             words[count++] = word;
         }
+
+        // cout<<"Count is : "<<count<<endl;
+        if(count < 2) {
+            logout<<"\tNumber of parameters mismatch for the command I"<<endl;
+            return;
+        }
         string wordType = words[2];
-        cout<<wordType<<endl; 
         string name = words[1];
         string type; 
 
@@ -55,9 +63,12 @@ class Compiler{
             }
         
             type = words[2] + "," + words[3] + "<==" + "("+ ss.str() + ")";  
-            cout<<type<<endl;
+            // cout<<type<<endl;
         
-        } else if (wordType == "STRUCT" || wordType == "UNION") {
+        } 
+        
+        
+        else if (wordType == "STRUCT" || wordType == "UNION") {
             stringstream ss;
             for(int i=3; i<count;i+=2){
                 ss<<"("+words[i]+","+words[i+1]<<")";
@@ -66,12 +77,20 @@ class Compiler{
 
             type = wordType+ ","+"{" + ss.str() + "}";
 
-        } else{
+        } 
+        
+        
+        else if(wordType != " "){
+            if(count != 3){
+                // cout<<"in "<<count<<endl;
+                logout<<"\tNumber of parameters mismatch for the command I"<<endl;
+                return;
+            }
             type = words[2]; 
         }
 
         SymbolInfo* symbolInfo = new SymbolInfo(name,type);
-        cout<<symbolInfo->to_string()<<endl; 
+        // cout<<symbolInfo->to_string()<<endl; 
         symbolTable->Insert(symbolInfo);
         
     }
@@ -93,10 +112,10 @@ class Compiler{
         } 
         SymbolInfo* symbolInfo = symbolTable->LookUp(name);
         if(symbolInfo != nullptr){
-            cout<<symbolInfo->to_string()<<endl; 
+            // cout<<symbolInfo->to_string()<<endl; 
         }
         else{
-            cout<<"Not found!"<<endl;
+            // cout<<"Not found!"<<endl;
         }
     }
 
@@ -109,6 +128,11 @@ class Compiler{
         string words[100]; 
         while(getline(ss,word,delimeter)){
             words[count++] = word; 
+        }
+
+        if(count != 2){
+            logout<<"\tNumber of parameters mismatch for the command D"<<endl;
+            return; 
         }
 
         string name = words[1]; 
@@ -128,6 +152,11 @@ class Compiler{
             words[count++] = word; 
         }
 
+        if(count != 2){
+            logout<<"\tNumber of parameters mismatch for the command I"<<endl;
+            return;
+        }
+
         if(words[1] == "C"){
             symbolTable->printCurrentScope();
         }
@@ -138,6 +167,12 @@ class Compiler{
     }
 
 
+    void trimTrailingSpaces(std::string& line) {
+        line.erase(std::find_if(line.rbegin(), line.rend(), [](unsigned char ch) {
+            return !std::isspace(ch);
+        }).base(), line.end());
+    }
+
 
 
 
@@ -147,6 +182,7 @@ class Compiler{
     void compile(){
         string line; 
         while(getline(in,line)){
+            trimTrailingSpaces(line);
             commandCount++;
             logout<<"Cmd "<<commandCount<<": "<<line<<endl; 
             switch(line[0]){
@@ -162,8 +198,8 @@ class Compiler{
                            break; 
                 case 'E' : symbolTable->ExitScope();
                            break;
-                // case 'Q' : logout.close();
-                //            exit(true);
+                case 'Q' : delete this->symbolTable;
+                           return;
                 
             }
         }
@@ -171,23 +207,22 @@ class Compiler{
     }
 
     ~Compiler(){
-        cout<<"Closing files!"<<endl;
-        in.close();
-        logout.close();
-        if(symbolTable) {
-            delete symbolTable;
-        }
+        in.close(); 
+        logout.close(); 
+        // cout<<"Compiler Deleted"<<endl;
     }
 
 };
 
 int main(){
-    string inputFile, outputFile; 
+    string inputFile, outputFile, hashFunctionName;
     cout<<"Enter the input file Name : ";
     cin>>inputFile;
     cout<<"Enter the output file Name : ";
     cin>>outputFile; 
-    Compiler* compiler = new Compiler(inputFile,outputFile); 
+    cout<<"Enter the hash function name : ";
+    cin>>hashFunctionName;
+    Compiler* compiler = new Compiler(inputFile,outputFile,hashFunctionName); 
     compiler->compile();
     delete compiler;
     return 0;

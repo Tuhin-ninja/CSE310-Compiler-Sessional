@@ -1,4 +1,5 @@
 #include "ScopeTable.hpp"
+#include "hash_functions.hpp"
 
 class SymbolTable{
     private : 
@@ -6,12 +7,14 @@ class SymbolTable{
        int size; 
        ofstream& logout;
        int scopeCounter; 
+       string hashFunctionName;
     
     public : 
-       SymbolTable(int size, ofstream& outputFile) : logout(outputFile){
+       SymbolTable(int size, ofstream& outputFile, string hashFunctionName) : logout(outputFile){
         this->size = size; 
         this->scopeCounter = 1; 
-        this->currentScopeTable = new ScopeTable(size,to_string(scopeCounter),logout); 
+        this->currentScopeTable = new ScopeTable(size,to_string(scopeCounter),logout, nullptr, hashFunctionName); 
+        this->hashFunctionName = hashFunctionName;
        }
 
 
@@ -34,6 +37,7 @@ class SymbolTable{
             }
             temp = temp->getParentScope();
         }
+        symbol = "\'" + symbol + "\'";
         logout<<"\t"<<symbol<<" not found in any of the ScopeTables"<<endl;
         return nullptr; 
        }
@@ -78,6 +82,18 @@ class SymbolTable{
        ScopeTable* getCurrentScope(){
         return this->currentScopeTable; 
        }
+
+
+       ~SymbolTable(){
+        ScopeTable* temp = currentScopeTable;
+        while(temp != nullptr){
+            ScopeTable* parent = temp->getParentScope(); 
+            logout<<"\tScopeTable# "<<temp->getID()<<" removed"<<endl;
+            delete temp; 
+            temp = parent; 
+        }
+    }
+    
 
 };
 

@@ -40,4 +40,10 @@ class SymbolInfo{
       string to_string(){
         return "<"+this->name+","+this->type+">";
       }
+
+      ~SymbolInfo(){
+        this->name = ""; 
+        this->type = ""; 
+        this->nextSymbol = nullptr; 
+      }
 }; 
