@@ -47,7 +47,7 @@ void appendReportEntry(const std::string& filename, const ReportEntry& entry) {
     }
 
     if (isEmpty) {
-        file << "Hash Function,Total Collisions,Collision Ratio\n";
+        file << "Hash Function,Total Collisions,Collision Ratio,Input Taken From\n";
     }
 
     file << entry.hashFunctionName << ","
