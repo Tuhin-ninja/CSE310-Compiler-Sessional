@@ -1,6 +1,3 @@
-#include "hash_functions.hpp"
-
-
 
 
 unsigned int SDBMHash(const std::string& str, unsigned int num_buckets) { unsigned int hash = 0;

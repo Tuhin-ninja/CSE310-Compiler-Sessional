@@ -4,9 +4,8 @@
 #include <cstring>
 #include <sstream>
 #include <string>
-#include "SymbolTable.hpp"
-#include "OutputManager.hpp"
-
+#include "2105002_SymbolTable.hpp"
+#include "2105002_OutputManager.cpp"
 
 using namespace std;
 

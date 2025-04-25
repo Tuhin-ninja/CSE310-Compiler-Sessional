@@ -1,5 +1,5 @@
-#include "ScopeTable.hpp"
-#include "hash_functions.hpp"
+#include "2105002_ScopeTable.hpp"
+#include "2105002_hash_functions.cpp"
 
 class SymbolTable{
     private : 

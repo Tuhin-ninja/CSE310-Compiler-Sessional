@@ -1,3 +1,3 @@
-to execute run this : g++ -std=c++17 -fsanitize=address Compiler.cpp OutputManager.cpp hash_functions.cpp -o compiler
+to execute run this : g++ -std=c++17 2105002_main.cpp -o main
 
-to generate report run this : g++ -std=c++17 -fsanitize=address 2105002_report_generator.cpp OutputManager.cpp hash_functions.cpp -o report
+to generate report run this : g++ -std=c++17 2105002_report_generator.cpp -o report

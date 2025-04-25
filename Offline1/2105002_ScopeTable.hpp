@@ -1,6 +1,6 @@
-#include "SymbolInfo.hpp"
-#include "OutputManager.hpp"
-#include "hash_functions.hpp"
+#include "2105002_SymbolInfo.hpp"
+#include "2105002_OutputManager.hpp"
+#include "2105002_hash_functions.hpp"
 
 
 
