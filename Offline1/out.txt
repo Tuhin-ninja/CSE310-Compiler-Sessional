@@ -1,277 +1,313 @@
 	ScopeTable# 1 created
-Cmd 1: I foo FUNCTION INT INT FLOAT INT
-	Inserted in ScopeTable# 1 at position 7, 1
-Cmd 2: I i VAR
+Cmd 1: I x VAR
 	Inserted in ScopeTable# 1 at position 1, 1
-Cmd 3: L i
-	'i' found in ScopeTable# 1 at position 1, 1
-Cmd 4: L i j
-	Number of parameters mismatch for the command L
-Cmd 5: L j
-	'j' not found in any of the ScopeTables
-Cmd 6: S
+Cmd 2: I y VAR
+	Inserted in ScopeTable# 1 at position 2, 1
+Cmd 3: I z VAR
+	Inserted in ScopeTable# 1 at position 3, 1
+Cmd 4: I num1 VAR
+	Inserted in ScopeTable# 1 at position 8, 1
+Cmd 5: I num2 VAR
+	Inserted in ScopeTable# 1 at position 9, 1
+Cmd 6: I calculate FUNCTION INT INT INT
+	Inserted in ScopeTable# 1 at position 3, 2
+Cmd 7: I result VAR
+	Inserted in ScopeTable# 1 at position 18, 1
+Cmd 8: S
 	ScopeTable# 2 created
-Cmd 7: I 23 NUMBER
-	Inserted in ScopeTable# 2 at position 5, 1
-Cmd 8: I car STRUCT INT n_doors BOOL is_electric STRING brand
-	Inserted in ScopeTable# 2 at position 5, 2
-Cmd 9: I brand VAR
+Cmd 9: I data STRUCT INT id STRING name BOOL active
+	Inserted in ScopeTable# 2 at position 19, 1
+Cmd 10: I student STRUCT STRING name INT age STRING dept
 	Inserted in ScopeTable# 2 at position 4, 1
-Cmd 10: P C
+Cmd 11: I user STRUCT STRING username STRING password
+	Inserted in ScopeTable# 2 at position 12, 1
+Cmd 12: I isLoggedIn VAR
+	Inserted in ScopeTable# 2 at position 2, 1
+Cmd 13: I MAX_SIZE VAR
+	Inserted in ScopeTable# 2 at position 5, 1
+Cmd 14: I temp VAR
+	Inserted in ScopeTable# 2 at position 9, 1
+Cmd 15: I flag BOOL
+	Inserted in ScopeTable# 2 at position 13, 1
+Cmd 16: I main FUNCTION INT
+	Inserted in ScopeTable# 2 at position 14, 1
+Cmd 17: I update FUNCTION VOID STRING INT
+	Inserted in ScopeTable# 2 at position 18, 1
+Cmd 18: I find FUNCTION BOOL STRING
+	Inserted in ScopeTable# 2 at position 14, 2
+Cmd 19: I print FUNCTION VOID
+	Inserted in ScopeTable# 2 at position 10, 1
+Cmd 20: I display FUNCTION VOID
+	Inserted in ScopeTable# 2 at position 11, 1
+Cmd 21: P C
 	ScopeTable# 2
 	1--> 
-	2--> 
+	2--> <isLoggedIn,VAR> 
 	3--> 
-	4--> <brand,VAR> 
-	5--> <23,NUMBER> <car,STRUCT,{(INT,n_doors),(BOOL,is_electric),(STRING,brand)}> 
+	4--> <student,STRUCT,{(STRING,name),(INT,age),(STRING,dept)}> 
+	5--> <MAX_SIZE,VAR> 
 	6--> 
 	7--> 
-Cmd 11: D i
-	Not found in the current ScopeTable
-Cmd 12: D j
-	Not found in the current ScopeTable
-Cmd 13: E
-	ScopeTable# 2 removed
-Cmd 14: S
+	8--> 
+	9--> <temp,VAR> 
+	10--> <print,FUNCTION,VOID<==()> 
+	11--> <display,FUNCTION,VOID<==()> 
+	12--> <user,STRUCT,{(STRING,username),(STRING,password)}> 
+	13--> <flag,BOOL> 
+	14--> <main,FUNCTION,INT<==()> <find,FUNCTION,BOOL<==(STRING)> 
+	15--> 
+	16--> 
+	17--> 
+	18--> <update,FUNCTION,VOID<==(STRING,INT)> 
+	19--> <data,STRUCT,{(INT,id),(STRING,name),(BOOL,active)}> 
+	20--> 
+Cmd 22: S
 	ScopeTable# 3 created
-Cmd 15: E
+Cmd 23: I x1 VAR
+	Inserted in ScopeTable# 3 at position 10, 1
+Cmd 24: I y1 VAR
+	Inserted in ScopeTable# 3 at position 9, 1
+Cmd 25: I sum VAR
+	Inserted in ScopeTable# 3 at position 8, 1
+Cmd 26: I total VAR
+	Inserted in ScopeTable# 3 at position 13, 1
+Cmd 27: I a VAR
+	Inserted in ScopeTable# 3 at position 18, 1
+Cmd 28: I b VAR
+	Inserted in ScopeTable# 3 at position 19, 1
+Cmd 29: I c VAR
+	Inserted in ScopeTable# 3 at position 20, 1
+Cmd 30: I d VAR
+	Inserted in ScopeTable# 3 at position 1, 1
+Cmd 31: I e VAR
+	Inserted in ScopeTable# 3 at position 2, 1
+Cmd 32: I f VAR
+	Inserted in ScopeTable# 3 at position 3, 1
+Cmd 33: I g VAR
+	Inserted in ScopeTable# 3 at position 4, 1
+Cmd 34: I h VAR
+	Inserted in ScopeTable# 3 at position 5, 1
+Cmd 35: I i VAR
+	Inserted in ScopeTable# 3 at position 6, 1
+Cmd 36: I j VAR
+	Inserted in ScopeTable# 3 at position 7, 1
+Cmd 37: I k VAR
+	Inserted in ScopeTable# 3 at position 8, 2
+Cmd 38: I l VAR
+	Inserted in ScopeTable# 3 at position 9, 2
+Cmd 39: I m VAR
+	Inserted in ScopeTable# 3 at position 10, 2
+Cmd 40: I n VAR
+	Inserted in ScopeTable# 3 at position 11, 1
+Cmd 41: I o VAR
+	Inserted in ScopeTable# 3 at position 12, 1
+Cmd 42: I p VAR
+	Inserted in ScopeTable# 3 at position 13, 2
+Cmd 43: I q VAR
+	Inserted in ScopeTable# 3 at position 14, 1
+Cmd 44: I r VAR
+	Inserted in ScopeTable# 3 at position 15, 1
+Cmd 45: I s VAR
+	Inserted in ScopeTable# 3 at position 16, 1
+Cmd 46: I t VAR
+	Inserted in ScopeTable# 3 at position 17, 1
+Cmd 47: I u VAR
+	Inserted in ScopeTable# 3 at position 18, 2
+Cmd 48: I v VAR
+	Inserted in ScopeTable# 3 at position 19, 2
+Cmd 49: I w VAR
+	Inserted in ScopeTable# 3 at position 20, 2
+Cmd 50: I x VAR
+	Inserted in ScopeTable# 3 at position 1, 2
+Cmd 51: I y VAR
+	Inserted in ScopeTable# 3 at position 2, 2
+Cmd 52: I z VAR
+	Inserted in ScopeTable# 3 at position 3, 2
+Cmd 53: P C
+	ScopeTable# 3
+	1--> <d,VAR> <x,VAR> 
+	2--> <e,VAR> <y,VAR> 
+	3--> <f,VAR> <z,VAR> 
+	4--> <g,VAR> 
+	5--> <h,VAR> 
+	6--> <i,VAR> 
+	7--> <j,VAR> 
+	8--> <sum,VAR> <k,VAR> 
+	9--> <y1,VAR> <l,VAR> 
+	10--> <x1,VAR> <m,VAR> 
+	11--> <n,VAR> 
+	12--> <o,VAR> 
+	13--> <total,VAR> <p,VAR> 
+	14--> <q,VAR> 
+	15--> <r,VAR> 
+	16--> <s,VAR> 
+	17--> <t,VAR> 
+	18--> <a,VAR> <u,VAR> 
+	19--> <b,VAR> <v,VAR> 
+	20--> <c,VAR> <w,VAR> 
+Cmd 54: E
 	ScopeTable# 3 removed
-Cmd 16: S
+Cmd 55: S
 	ScopeTable# 4 created
-Cmd 17: P A
+Cmd 56: I vehicle UNION STRING name INT wheels BOOL electric
+	Inserted in ScopeTable# 4 at position 9, 1
+Cmd 57: I bicycle UNION INT gears BOOL hydrolic STRING brand
+	Inserted in ScopeTable# 4 at position 4, 1
+Cmd 58: I truck STRUCT INT loadCapacity STRING company
+	Inserted in ScopeTable# 4 at position 8, 1
+Cmd 59: I plane STRUCT STRING airline INT seats
+	Inserted in ScopeTable# 4 at position 13, 1
+Cmd 60: I jet STRUCT STRING model INT speed
+	Inserted in ScopeTable# 4 at position 2, 1
+Cmd 61: I train STRUCT STRING type INT coaches
+	Inserted in ScopeTable# 4 at position 5, 1
+Cmd 62: P A
 	ScopeTable# 4
 	1--> 
-	2--> 
+	2--> <jet,STRUCT,{(STRING,model),(INT,speed)}> 
 	3--> 
-	4--> 
-	5--> 
+	4--> <bicycle,UNION,{(INT,gears),(BOOL,hydrolic),(STRING,brand)}> 
+	5--> <train,STRUCT,{(STRING,type),(INT,coaches)}> 
 	6--> 
 	7--> 
-		ScopeTable# 1
-		1--> <i,VAR> 
-		2--> 
-		3--> 
-		4--> 
-		5--> 
-		6--> 
-		7--> <foo,FUNCTION,INT<==(INT,FLOAT,INT)> 
-Cmd 18: S
-	ScopeTable# 5 created
-Cmd 19: I <= RELOP
-	Inserted in ScopeTable# 5 at position 7, 1
-Cmd 20: I == RELOP
-	Inserted in ScopeTable# 5 at position 2, 1
-Cmd 21: P A
-	ScopeTable# 5
-	1--> 
-	2--> <==,RELOP> 
-	3--> 
-	4--> 
-	5--> 
-	6--> 
-	7--> <<=,RELOP> 
-		ScopeTable# 4
+	8--> <truck,STRUCT,{(INT,loadCapacity),(STRING,company)}> 
+	9--> <vehicle,UNION,{(STRING,name),(INT,wheels),(BOOL,electric)}> 
+	10--> 
+	11--> 
+	12--> 
+	13--> <plane,STRUCT,{(STRING,airline),(INT,seats)}> 
+	14--> 
+	15--> 
+	16--> 
+	17--> 
+	18--> 
+	19--> 
+	20--> 
+		ScopeTable# 2
 		1--> 
-		2--> 
+		2--> <isLoggedIn,VAR> 
 		3--> 
-		4--> 
-		5--> 
+		4--> <student,STRUCT,{(STRING,name),(INT,age),(STRING,dept)}> 
+		5--> <MAX_SIZE,VAR> 
 		6--> 
 		7--> 
+		8--> 
+		9--> <temp,VAR> 
+		10--> <print,FUNCTION,VOID<==()> 
+		11--> <display,FUNCTION,VOID<==()> 
+		12--> <user,STRUCT,{(STRING,username),(STRING,password)}> 
+		13--> <flag,BOOL> 
+		14--> <main,FUNCTION,INT<==()> <find,FUNCTION,BOOL<==(STRING)> 
+		15--> 
+		16--> 
+		17--> 
+		18--> <update,FUNCTION,VOID<==(STRING,INT)> 
+		19--> <data,STRUCT,{(INT,id),(STRING,name),(BOOL,active)}> 
+		20--> 
 			ScopeTable# 1
-			1--> <i,VAR> 
-			2--> 
-			3--> 
+			1--> <x,VAR> 
+			2--> <y,VAR> 
+			3--> <z,VAR> <calculate,FUNCTION,INT<==(INT,INT)> 
 			4--> 
 			5--> 
 			6--> 
-			7--> <foo,FUNCTION,INT<==(INT,FLOAT,INT)> 
-Cmd 22: I >= RELOP
-	Inserted in ScopeTable# 5 at position 4, 1
-Cmd 23: P C
-	ScopeTable# 5
-	1--> 
-	2--> <==,RELOP> 
-	3--> 
-	4--> <>=,RELOP> 
-	5--> 
-	6--> 
-	7--> <<=,RELOP> 
-Cmd 24: I <= RELOP
-	'<=' already exists in the current ScopeTable
-Cmd 25: I foo STRUCT INT a FLOAT b
-	Inserted in ScopeTable# 5 at position 7, 2
-Cmd 26: P A
-	ScopeTable# 5
-	1--> 
-	2--> <==,RELOP> 
-	3--> 
-	4--> <>=,RELOP> 
-	5--> 
-	6--> 
-	7--> <<=,RELOP> <foo,STRUCT,{(INT,a),(FLOAT,b)}> 
-		ScopeTable# 4
-		1--> 
-		2--> 
-		3--> 
-		4--> 
-		5--> 
-		6--> 
-		7--> 
-			ScopeTable# 1
-			1--> <i,VAR> 
-			2--> 
-			3--> 
-			4--> 
-			5--> 
-			6--> 
-			7--> <foo,FUNCTION,INT<==(INT,FLOAT,INT)> 
-Cmd 27: D ==
-	Deleted '==' from ScopeTable# 5 at position 2, 1
-Cmd 28: I foo VAR
-	'foo' already exists in the current ScopeTable
-Cmd 29: D 23
+			7--> 
+			8--> <num1,VAR> 
+			9--> <num2,VAR> 
+			10--> 
+			11--> 
+			12--> 
+			13--> 
+			14--> 
+			15--> 
+			16--> 
+			17--> 
+			18--> <result,VAR> 
+			19--> 
+			20--> 
+Cmd 63: D x
 	Not found in the current ScopeTable
-Cmd 30: D
-	Number of parameters mismatch for the command D
-Cmd 31: P A
-	ScopeTable# 5
+Cmd 64: D y
+	Not found in the current ScopeTable
+Cmd 65: D z
+	Not found in the current ScopeTable
+Cmd 66: D num1
+	Not found in the current ScopeTable
+Cmd 67: D num2
+	Not found in the current ScopeTable
+Cmd 68: D result
+	Not found in the current ScopeTable
+Cmd 69: L x
+	'x' found in ScopeTable# 1 at position 1, 1
+Cmd 70: L y
+	'y' found in ScopeTable# 1 at position 2, 1
+Cmd 71: L plane
+	'plane' found in ScopeTable# 4 at position 13, 1
+Cmd 72: P A
+	ScopeTable# 4
 	1--> 
-	2--> 
+	2--> <jet,STRUCT,{(STRING,model),(INT,speed)}> 
 	3--> 
-	4--> <>=,RELOP> 
-	5--> 
+	4--> <bicycle,UNION,{(INT,gears),(BOOL,hydrolic),(STRING,brand)}> 
+	5--> <train,STRUCT,{(STRING,type),(INT,coaches)}> 
 	6--> 
-	7--> <<=,RELOP> <foo,STRUCT,{(INT,a),(FLOAT,b)}> 
-		ScopeTable# 4
+	7--> 
+	8--> <truck,STRUCT,{(INT,loadCapacity),(STRING,company)}> 
+	9--> <vehicle,UNION,{(STRING,name),(INT,wheels),(BOOL,electric)}> 
+	10--> 
+	11--> 
+	12--> 
+	13--> <plane,STRUCT,{(STRING,airline),(INT,seats)}> 
+	14--> 
+	15--> 
+	16--> 
+	17--> 
+	18--> 
+	19--> 
+	20--> 
+		ScopeTable# 2
 		1--> 
-		2--> 
+		2--> <isLoggedIn,VAR> 
 		3--> 
-		4--> 
-		5--> 
+		4--> <student,STRUCT,{(STRING,name),(INT,age),(STRING,dept)}> 
+		5--> <MAX_SIZE,VAR> 
 		6--> 
 		7--> 
+		8--> 
+		9--> <temp,VAR> 
+		10--> <print,FUNCTION,VOID<==()> 
+		11--> <display,FUNCTION,VOID<==()> 
+		12--> <user,STRUCT,{(STRING,username),(STRING,password)}> 
+		13--> <flag,BOOL> 
+		14--> <main,FUNCTION,INT<==()> <find,FUNCTION,BOOL<==(STRING)> 
+		15--> 
+		16--> 
+		17--> 
+		18--> <update,FUNCTION,VOID<==(STRING,INT)> 
+		19--> <data,STRUCT,{(INT,id),(STRING,name),(BOOL,active)}> 
+		20--> 
 			ScopeTable# 1
-			1--> <i,VAR> 
-			2--> 
-			3--> 
-			4--> 
-			5--> 
-			6--> 
-			7--> <foo,FUNCTION,INT<==(INT,FLOAT,INT)> 
-Cmd 32: L 23
-	'23' not found in any of the ScopeTables
-Cmd 33: S
-	ScopeTable# 6 created
-Cmd 34: I x VAR
-	Inserted in ScopeTable# 6 at position 2, 1
-Cmd 35: I y VAR
-	Inserted in ScopeTable# 6 at position 3, 1
-Cmd 36: P A
-	ScopeTable# 6
-	1--> 
-	2--> <x,VAR> 
-	3--> <y,VAR> 
-	4--> 
-	5--> 
-	6--> 
-	7--> 
-		ScopeTable# 5
-		1--> 
-		2--> 
-		3--> 
-		4--> <>=,RELOP> 
-		5--> 
-		6--> 
-		7--> <<=,RELOP> <foo,STRUCT,{(INT,a),(FLOAT,b)}> 
-			ScopeTable# 4
-			1--> 
-			2--> 
-			3--> 
+			1--> <x,VAR> 
+			2--> <y,VAR> 
+			3--> <z,VAR> <calculate,FUNCTION,INT<==(INT,INT)> 
 			4--> 
 			5--> 
 			6--> 
 			7--> 
-				ScopeTable# 1
-				1--> <i,VAR> 
-				2--> 
-				3--> 
-				4--> 
-				5--> 
-				6--> 
-				7--> <foo,FUNCTION,INT<==(INT,FLOAT,INT)> 
-Cmd 37: L foo
-	'foo' found in ScopeTable# 5 at position 7, 2
-Cmd 38: E
-	ScopeTable# 6 removed
-Cmd 39: I num VAR
-	Inserted in ScopeTable# 5 at position 7, 3
-Cmd 40: I bicycle UNION INT n_gears BOOL is_hydrolic_brake STRING brand
-	Inserted in ScopeTable# 5 at position 4, 2
-Cmd 41: S
-	ScopeTable# 7 created
-Cmd 42: I true BOOL
-	Inserted in ScopeTable# 7 at position 5, 1
-Cmd 43: L a
-	'a' not found in any of the ScopeTables
-Cmd 44: P A
-	ScopeTable# 7
-	1--> 
-	2--> 
-	3--> 
-	4--> 
-	5--> <true,BOOL> 
-	6--> 
-	7--> 
-		ScopeTable# 5
-		1--> 
-		2--> 
-		3--> 
-		4--> <>=,RELOP> <bicycle,UNION,{(INT,n_gears),(BOOL,is_hydrolic_brake),(STRING,brand)}> 
-		5--> 
-		6--> 
-		7--> <<=,RELOP> <foo,STRUCT,{(INT,a),(FLOAT,b)}> <num,VAR> 
-			ScopeTable# 4
-			1--> 
-			2--> 
-			3--> 
-			4--> 
-			5--> 
-			6--> 
-			7--> 
-				ScopeTable# 1
-				1--> <i,VAR> 
-				2--> 
-				3--> 
-				4--> 
-				5--> 
-				6--> 
-				7--> <foo,FUNCTION,INT<==(INT,FLOAT,INT)> 
-Cmd 45: E
-	ScopeTable# 7 removed
-Cmd 46: E
-	ScopeTable# 5 removed
-Cmd 47: E
+			8--> <num1,VAR> 
+			9--> <num2,VAR> 
+			10--> 
+			11--> 
+			12--> 
+			13--> 
+			14--> 
+			15--> 
+			16--> 
+			17--> 
+			18--> <result,VAR> 
+			19--> 
+			20--> 
+Cmd 73: Q
 	ScopeTable# 4 removed
-Cmd 48: S
-	ScopeTable# 8 created
-Cmd 49: P A
-	ScopeTable# 8
-	1--> 
-	2--> 
-	3--> 
-	4--> 
-	5--> 
-	6--> 
-	7--> 
-		ScopeTable# 1
-		1--> <i,VAR> 
-		2--> 
-		3--> 
-		4--> 
-		5--> 
-		6--> 
-		7--> <foo,FUNCTION,INT<==(INT,FLOAT,INT)> 
-Cmd 50: Q
-	ScopeTable# 8 removed
+	ScopeTable# 2 removed
 	ScopeTable# 1 removed

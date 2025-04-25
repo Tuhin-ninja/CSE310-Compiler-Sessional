@@ -14,6 +14,7 @@ struct ReportEntry {
     char hashFunctionName[20];
     int totalCollisions;
     double collisionRatio;
+    string inputTakenFrom;
 };
 
 void generateReportCSV(ReportEntry entries[], int entryCount, const char* filename) {
@@ -51,7 +52,8 @@ void appendReportEntry(const std::string& filename, const ReportEntry& entry) {
 
     file << entry.hashFunctionName << ","
          << entry.totalCollisions << ","
-         << std::fixed << std::setprecision(6) << entry.collisionRatio << "\n";
+         << std::fixed << std::setprecision(6) << entry.collisionRatio << ","
+         <<entry.inputTakenFrom << "\n";
     
     file.close();
 }
@@ -333,6 +335,7 @@ int main(int argc, char* argv[])
     strcpy(entry.hashFunctionName, hashFunctionName.c_str());
     entry.totalCollisions = compiler->getCollisionCount();
     entry.collisionRatio = compiler->getCollisionRatio();
+    entry.inputTakenFrom = inputFile;
     delete compiler;
     appendReportEntry(reportFile, entry);
     return 0;
