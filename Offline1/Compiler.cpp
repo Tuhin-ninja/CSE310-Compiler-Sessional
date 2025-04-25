@@ -4,7 +4,6 @@
 #include <string>
 #include "SymbolTable.hpp"
 #include "OutputManager.hpp"
-#include "2105002_report_generator.cpp"
 
 using namespace std;
 
@@ -260,57 +259,24 @@ public:
     }
 };
 
-int main()
+int main(int argc, char* argv[])
 {
-    bool isGenerateReport = false;
-    string inputFile, outputFile, hashFunctionName;
-    cout << "Enter the input file Name : ";
-    cin >> inputFile;
-    cout << "Enter the output file Name : ";
-    cin >> outputFile;
-    cout << "Do you want to generate report? (1 for yes, 0 for no): ";
-    cin >> isGenerateReport;
-    Compiler *compiler = nullptr;
-    if (isGenerateReport == true)
-    {
-        ReportEntry entries[3];
-
-        // Manually copy strings since no STL
-        strcpy(entries[0].hashFunctionName, "sdbm");
-        compiler = new Compiler(inputFile, outputFile, "sdbm");
-        compiler->compile();
-        entries[0].totalCollisions = compiler->getCollisionCount();
-        entries[0].collisionRatio = compiler->getCollisionRatio();
-        delete compiler;
-        compiler = nullptr;
-
-        strcpy(entries[1].hashFunctionName, "fnv1a");
-        compiler = new Compiler(inputFile, outputFile, "fnv1a");
-        compiler->compile();
-        entries[1].totalCollisions = compiler->getCollisionCount();
-        entries[1].collisionRatio = compiler->getCollisionRatio();
-        delete compiler;
-        compiler = nullptr;
-
-        strcpy(entries[2].hashFunctionName, "murmur");
-        compiler = new Compiler(inputFile, outputFile, "murmur");
-        compiler->compile();
-        entries[2].totalCollisions = compiler->getCollisionCount();
-        entries[2].collisionRatio = compiler->getCollisionRatio();
-        delete compiler;
-        compiler = nullptr;
-        generateReportCSV(entries, 3, "report.csv");
-
-        std::cout << "Report generated as report.csv\n";
-        return 0;
+    string hashFunctionName = "sdbm"; //default hash function
+    if (argc < 3 || argc > 4) {
+        cerr << "Error: Invalid number of arguments." << endl;
+        cerr << "Usage: " << argv[0] << " <input_file> <output_file> [<hash_function_name>]" << endl;
+        return 1;
     }
-    else
-    {
-        cout << "Enter the hash function name : ";
-        cin >> hashFunctionName;
-        Compiler *compiler = new Compiler(inputFile, outputFile, hashFunctionName);
-        compiler->compile();
-        delete compiler;
-        return 0;
+
+    string inputFile = argv[1];
+    string outputFile = argv[2];
+    if (argc == 4) {
+        hashFunctionName = argv[3];
     }
+    const string reportFile = "report.csv"; 
+
+    Compiler* compiler = new Compiler(inputFile, outputFile, hashFunctionName);
+    compiler->compile();
+    delete compiler;
+    return 0;
 }
