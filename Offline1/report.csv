@@ -1,0 +1,4 @@
+Hash Function,Total Collisions,Collision Ratio
+sdbm,22,0.400000
+fnv1a,23,0.418182
+murmur,22,0.400000

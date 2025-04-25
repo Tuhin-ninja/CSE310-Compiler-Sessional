@@ -17,6 +17,7 @@ private:
     string id;
     ofstream &logout;
     HashFunction hashFunction;
+    int collisionCount;
 
 public:
     ScopeTable(int size, string id, ofstream &outputFile, ScopeTable *parentScope = nullptr, string hashFunctionName = "sdbm") : logout(outputFile)
@@ -25,25 +26,15 @@ public:
         this->id = id;
         this->parentScope = parentScope;
         this->hashFunction = getHashFunctionByName(hashFunctionName);
-        // logout<<"Going with hash function : "<<getHashFunctionName(hashFunctionName)<<endl;
         scopeVariables = new SymbolInfo *[size];
+        this->collisionCount = 0;
+
         for (int i = 0; i < size; i++)
         {
             scopeVariables[i] = nullptr;
         }
     }
 
-    unsigned int SDBMHash(string str, unsigned int num_buckets)
-    {
-        unsigned int hash = 0;
-        unsigned int len = str.length();
-        for (unsigned int i = 0; i < len; i++)
-        {
-            hash = ((str[i]) + (hash << 6) + (hash << 16) - hash) %
-                   num_buckets;
-        }
-        return hash;
-    }
     bool insert(SymbolInfo *symbolInfo)
     {
 
@@ -51,6 +42,7 @@ public:
         if (index < 0)
             index *= -1;
         SymbolInfo *temp = scopeVariables[index];
+        collisionCount = 0;
         SymbolInfo *prev = nullptr;
         int count = 0;
         if (temp == nullptr)
@@ -64,6 +56,7 @@ public:
         {
             while (temp)
             {
+
                 count++;
                 if (temp->getName() == symbolInfo->getName())
                 {
@@ -75,6 +68,7 @@ public:
                 prev = temp;
                 temp = temp->getNextSymbol();
             }
+            collisionCount++;
             count++;
             prev->setNextSymbol(symbolInfo);
             logout << "\tInserted in ScopeTable# " << id << " at position " << index + 1 << ", " << count << endl;
@@ -82,9 +76,18 @@ public:
         }
     }
 
+
+    int getCollisionCount()
+    {
+
+        return collisionCount;
+    }   
+
     SymbolInfo *lookUp(string symbol)
     {
-        int index = SDBMHash(symbol,size) % this->size;
+        long long index = hashFunction(symbol, this->size) % this->size;
+        if (index < 0)
+            index *= -1;
         SymbolInfo *temp = scopeVariables[index];
         int count = 0;
         while (temp)
@@ -104,7 +107,9 @@ public:
 
     bool Delete(string symbol)
     {
-        int index = SDBMHash(symbol,size) % this->size;
+        long long index = hashFunction(symbol, this->size) % this->size;
+        if (index < 0)
+            index *= -1;
         SymbolInfo *temp = scopeVariables[index];
         SymbolInfo *prev = nullptr;
         int count = 0;

@@ -4,227 +4,313 @@
 #include <string>
 #include "SymbolTable.hpp"
 #include "OutputManager.hpp"
-
+#include "2105002_report_generator.cpp"
 
 using namespace std;
 
-class Compiler{
-    private : 
-       ifstream in; 
-       SymbolTable* symbolTable; 
-       int commandCount;
-       string hashFunctionName;
-    public : 
-    Compiler(string inputFile, string outputFile, string hashFunctionName){
+class Compiler
+{
+private:
+    ifstream in;
+    SymbolTable *symbolTable;
+    int commandCount;
+    string hashFunctionName;
+    int collisionCount;
+    double collisionRatio;
+    int insertionCount;
+
+public:
+    Compiler(string inputFile, string outputFile, string hashFunctionName)
+    {
         this->hashFunctionName = hashFunctionName;
-        in.open(inputFile); 
+        in.open(inputFile);
         initializeLogout(outputFile);
         this->commandCount = 0;
-        if(!in.is_open()){
-            cout<<"Failed to open inputFile"<<endl;
+        this->collisionCount = 0;
+        this->collisionRatio = 0.0;
+        this->insertionCount = 0;
+        if (!in.is_open())
+        {
+            cout << "Failed to open inputFile" << endl;
         }
-        else if(!logout.is_open()){
-            cout<<"Failed to open outputFile"<<endl;
+        else if (!logout.is_open())
+        {
+            cout << "Failed to open outputFile" << endl;
         }
-        else {
-            string line; 
-            getline(this->in,line); 
-         
+        else
+        {
+            string line;
+            getline(this->in, line);
+
             symbolTable = new SymbolTable(stoi(line), logout, hashFunctionName);
-            logout<<"\tScopeTable# "<<symbolTable->getCurrentScope()->getID()<<" created"<<endl;
+            logout << "\tScopeTable# " << symbolTable->getCurrentScope()->getID() << " created" << endl;
         }
     }
 
+    void Insertion(string line)
+    {
 
-    void Insertion(string line){
-        stringstream ss(line); 
-        char delimeter = ' '; 
-        string word; 
-        int count = 0; 
-        string words[100];  // assuming max words 100. if found better solution, this should be modified... 
-        while(getline(ss,word,delimeter)){
+        stringstream ss(line);
+        char delimeter = ' ';
+        string word;
+        int count = 0;
+        string words[100]; // assuming max words 100. if found better solution, this should be modified...
+        while (getline(ss, word, delimeter))
+        {
             words[count++] = word;
         }
 
         // cout<<"Count is : "<<count<<endl;
-        if(count < 2) {
-            logout<<"\tNumber of parameters mismatch for the command I"<<endl;
+        if (count < 2)
+        {
+            logout << "\tNumber of parameters mismatch for the command I" << endl;
             return;
         }
         string wordType = words[2];
         string name = words[1];
-        string type; 
+        string type;
 
-        if (wordType == "FUNCTION") {
+        if (wordType == "FUNCTION")
+        {
             stringstream ss;
-            for (int i = 4; i < count; ++i) {
+            for (int i = 4; i < count; ++i)
+            {
                 ss << words[i];
-                if (i != count - 1) ss << ",";
+                if (i != count - 1)
+                    ss << ",";
             }
-        
-            type = words[2] + "," + words[3] + "<==" + "("+ ss.str() + ")";  
+
+            type = words[2] + "," + words[3] + "<==" + "(" + ss.str() + ")";
             // cout<<type<<endl;
-        
-        } 
-        
-        
-        else if (wordType == "STRUCT" || wordType == "UNION") {
-            stringstream ss;
-            for(int i=3; i<count;i+=2){
-                ss<<"("+words[i]+","+words[i+1]<<")";
-                if(i != count-2) ss<<",";
-            }
-
-            type = wordType+ ","+"{" + ss.str() + "}";
-
-        } 
-        
-        
-        else if(wordType != " "){
-            if(count != 3){
-                // cout<<"in "<<count<<endl;
-                logout<<"\tNumber of parameters mismatch for the command I"<<endl;
-                return;
-            }
-            type = words[2]; 
         }
 
-        SymbolInfo* symbolInfo = new SymbolInfo(name,type);
-        // cout<<symbolInfo->to_string()<<endl; 
+        else if (wordType == "STRUCT" || wordType == "UNION")
+        {
+            stringstream ss;
+            for (int i = 3; i < count; i += 2)
+            {
+                ss << "(" + words[i] + "," + words[i + 1] << ")";
+                if (i != count - 2)
+                    ss << ",";
+            }
+
+            type = wordType + "," + "{" + ss.str() + "}";
+        }
+
+        else if (wordType != " ")
+        {
+            if (count != 3)
+            {
+                // cout<<"in "<<count<<endl;
+                logout << "\tNumber of parameters mismatch for the command I" << endl;
+                return;
+            }
+            type = words[2];
+        }
+
+        SymbolInfo *symbolInfo = new SymbolInfo(name, type);
+        // cout<<symbolInfo->to_string()<<endl;
         symbolTable->Insert(symbolInfo);
-        
+        this->insertionCount++;
     }
 
-
-    void Lookup(string line){
-        stringstream ss(line); 
-        char delimeter = ' '; 
-        string word; 
-        int count = 0; 
-        string words[100];  // assuming max words 100. if found better solution, this should be modified... 
-        while(getline(ss,word,delimeter)){
+    void Lookup(string line)
+    {
+        stringstream ss(line);
+        char delimeter = ' ';
+        string word;
+        int count = 0;
+        string words[100]; // assuming max words 100. if found better solution, this should be modified...
+        while (getline(ss, word, delimeter))
+        {
             words[count++] = word;
         }
         string name = words[1];
-        if(count != 2){
-            logout<<"\tNumber of parameters mismatch for the command L"<<endl; 
-            return; 
-        } 
-        SymbolInfo* symbolInfo = symbolTable->LookUp(name);
-        if(symbolInfo != nullptr){
-            // cout<<symbolInfo->to_string()<<endl; 
+        if (count != 2)
+        {
+            logout << "\tNumber of parameters mismatch for the command L" << endl;
+            return;
         }
-        else{
+        SymbolInfo *symbolInfo = symbolTable->LookUp(name);
+        if (symbolInfo != nullptr)
+        {
+            // cout<<symbolInfo->to_string()<<endl;
+        }
+        else
+        {
             // cout<<"Not found!"<<endl;
         }
     }
 
-
-    void Delete(string line){
-        stringstream ss(line); 
-        char delimeter = ' '; 
-        string word; 
-        int count = 0; 
-        string words[100]; 
-        while(getline(ss,word,delimeter)){
-            words[count++] = word; 
+    void Delete(string line)
+    {
+        stringstream ss(line);
+        char delimeter = ' ';
+        string word;
+        int count = 0;
+        string words[100];
+        while (getline(ss, word, delimeter))
+        {
+            words[count++] = word;
         }
 
-        if(count != 2){
-            logout<<"\tNumber of parameters mismatch for the command D"<<endl;
-            return; 
-        }
-
-        string name = words[1]; 
-        symbolTable->Remove(name);
-
-    }
-
-
-
-    void Print(string line){
-        stringstream ss(line); 
-        char delimeter = ' '; 
-        string word; 
-        int count = 0; 
-        string words[100]; 
-        while(getline(ss,word,delimeter)){
-            words[count++] = word; 
-        }
-
-        if(count != 2){
-            logout<<"\tNumber of parameters mismatch for the command I"<<endl;
+        if (count != 2)
+        {
+            logout << "\tNumber of parameters mismatch for the command D" << endl;
             return;
         }
 
-        if(words[1] == "C"){
+        string name = words[1];
+        symbolTable->Remove(name);
+    }
+
+    void Print(string line)
+    {
+        stringstream ss(line);
+        char delimeter = ' ';
+        string word;
+        int count = 0;
+        string words[100];
+        while (getline(ss, word, delimeter))
+        {
+            words[count++] = word;
+        }
+
+        if (count != 2)
+        {
+            logout << "\tNumber of parameters mismatch for the command I" << endl;
+            return;
+        }
+
+        if (words[1] == "C")
+        {
             symbolTable->printCurrentScope();
         }
 
-        if(words[1] == "A"){
+        if (words[1] == "A")
+        {
             symbolTable->printAllScopes();
         }
     }
 
-
-    void trimTrailingSpaces(std::string& line) {
-        line.erase(std::find_if(line.rbegin(), line.rend(), [](unsigned char ch) {
-            return !std::isspace(ch);
-        }).base(), line.end());
+    void trimTrailingSpaces(std::string &line)
+    {
+        line.erase(std::find_if(line.rbegin(), line.rend(), [](unsigned char ch)
+                                { return !std::isspace(ch); })
+                       .base(),
+                   line.end());
     }
 
+    SymbolTable *getSymbolTable()
+    {
+        return this->symbolTable;
+    }
 
-
-
-
-
-
-    void compile(){
-        string line; 
-        while(getline(in,line)){
+    void compile()
+    {
+        string line;
+        while (getline(in, line))
+        {
             trimTrailingSpaces(line);
             commandCount++;
-            logout<<"Cmd "<<commandCount<<": "<<line<<endl; 
-            switch(line[0]){
-                case 'I' : Insertion(line);
-                           break;
-                case 'L' : Lookup(line);
-                           break;
-                case 'D' : Delete(line); 
-                           break; 
-                case 'P' : Print(line);
-                           break; 
-                case 'S' : symbolTable->EnterScope();
-                           break; 
-                case 'E' : symbolTable->ExitScope();
-                           break;
-                case 'Q' : delete this->symbolTable;
-                           return;
-                
+            logout << "Cmd " << commandCount << ": " << line << endl;
+            switch (line[0])
+            {
+            case 'I':
+                Insertion(line);
+                break;
+            case 'L':
+                Lookup(line);
+                break;
+            case 'D':
+                Delete(line);
+                break;
+            case 'P':
+                Print(line);
+                break;
+            case 'S':
+                symbolTable->EnterScope();
+                break;
+            case 'E':
+                symbolTable->ExitScope();
+                break;
+            case 'Q':
+                this->collisionCount = symbolTable->getCollisionCount();
+                this->collisionRatio = symbolTable->getCollisionRatio();
+                delete this->symbolTable;
+                return;
             }
         }
-
     }
 
-    ~Compiler(){
-        in.close(); 
-        logout.close(); 
+    int getCollisionCount()
+    {
+        return this->collisionCount;
+    }
+    double getCollisionRatio()
+    {
+        return this->collisionRatio;
+    }
+
+    ~Compiler()
+    {
+        in.close();
+        logout.close();
         // cout<<"Compiler Deleted"<<endl;
     }
-
 };
 
-int main(){
+int main()
+{
+    bool isGenerateReport = false;
     string inputFile, outputFile, hashFunctionName;
-    cout<<"Enter the input file Name : ";
-    cin>>inputFile;
-    cout<<"Enter the output file Name : ";
-    cin>>outputFile; 
-    cout<<"Enter the hash function name : ";
-    cin>>hashFunctionName;
-    Compiler* compiler = new Compiler(inputFile,outputFile,hashFunctionName); 
-    compiler->compile();
-    delete compiler;
-    return 0;
+    cout << "Enter the input file Name : ";
+    cin >> inputFile;
+    cout << "Enter the output file Name : ";
+    cin >> outputFile;
+    cout << "Do you want to generate report? (1 for yes, 0 for no): ";
+    cin >> isGenerateReport;
+    Compiler *compiler = nullptr;
+    if (isGenerateReport == true)
+    {
+        ReportEntry entries[3];
 
+        // Manually copy strings since no STL
+        strcpy(entries[0].hashFunctionName, "sdbm");
+        compiler = new Compiler(inputFile, outputFile, "sdbm");
+        compiler->compile();
+        entries[0].totalCollisions = compiler->getCollisionCount();
+        entries[0].collisionRatio = compiler->getCollisionRatio();
+        delete compiler;
+        compiler = nullptr;
+
+        strcpy(entries[1].hashFunctionName, "fnv1a");
+        compiler = new Compiler(inputFile, outputFile, "fnv1a");
+        compiler->compile();
+        entries[1].totalCollisions = compiler->getCollisionCount();
+        entries[1].collisionRatio = compiler->getCollisionRatio();
+        delete compiler;
+        compiler = nullptr;
+
+        strcpy(entries[2].hashFunctionName, "murmur");
+        compiler = new Compiler(inputFile, outputFile, "murmur");
+        compiler->compile();
+        entries[2].totalCollisions = compiler->getCollisionCount();
+        entries[2].collisionRatio = compiler->getCollisionRatio();
+        delete compiler;
+        compiler = nullptr;
+        generateReportCSV(entries, 3, "report.csv");
+
+        std::cout << "Report generated as report.csv\n";
+        return 0;
+    }
+    else
+    {
+        cout << "Enter the hash function name : ";
+        cin >> hashFunctionName;
+        Compiler *compiler = new Compiler(inputFile, outputFile, hashFunctionName);
+        compiler->compile();
+        delete compiler;
+        return 0;
+    }
 }

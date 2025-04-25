@@ -8,6 +8,9 @@ class SymbolTable{
        ofstream& logout;
        int scopeCounter; 
        string hashFunctionName;
+       int collisionCount;
+       double collisionRatio;
+       int insertionCount;
     
     public : 
        SymbolTable(int size, ofstream& outputFile, string hashFunctionName) : logout(outputFile){
@@ -15,13 +18,31 @@ class SymbolTable{
         this->scopeCounter = 1; 
         this->currentScopeTable = new ScopeTable(size,to_string(scopeCounter),logout, nullptr, hashFunctionName); 
         this->hashFunctionName = hashFunctionName;
+        this->collisionCount = 0;
+        this->collisionRatio = 0.0;
+        this->insertionCount = 0;
        }
 
 
        bool Insert(SymbolInfo* symbolInfo){
-        return currentScopeTable->insert(symbolInfo);
-       }
 
+        bool result =  currentScopeTable->insert(symbolInfo);
+        if(result) insertionCount++;
+        this->collisionCount += currentScopeTable->getCollisionCount();
+        // cout<<"Collision Count is : "<<collisionCount<<endl;
+        // cout<<"during inserting in scope table "<<currentScopeTable->getID()<<" collision count is : "<<collisionCount<<endl;   
+        return result;
+       }
+       
+       int getCollisionCount() {
+        return this->collisionCount;
+       
+      }
+    
+
+       double getCollisionRatio(){
+        return (double)collisionCount/(double)insertionCount;
+       }
 
        bool Remove(string symbol){
         return currentScopeTable->Delete(symbol); 

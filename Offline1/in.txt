@@ -1,0 +1,74 @@
+20
+I x VAR
+I y VAR
+I z VAR
+I num1 VAR
+I num2 VAR
+I calculate FUNCTION INT INT INT
+I result VAR
+S
+I data STRUCT INT id STRING name BOOL active
+I student STRUCT STRING name INT age STRING dept
+I user STRUCT STRING username STRING password
+I isLoggedIn VAR
+I MAX_SIZE VAR
+I temp VAR
+I flag BOOL
+I main FUNCTION INT
+I update FUNCTION VOID STRING INT
+I find FUNCTION BOOL STRING
+I print FUNCTION VOID
+I display FUNCTION VOID
+P C
+S
+I x1 VAR
+I y1 VAR
+I sum VAR
+I total VAR
+I a VAR
+I b VAR
+I c VAR
+I d VAR
+I e VAR
+I f VAR
+I g VAR
+I h VAR
+I i VAR
+I j VAR
+I k VAR
+I l VAR
+I m VAR
+I n VAR
+I o VAR
+I p VAR
+I q VAR
+I r VAR
+I s VAR
+I t VAR
+I u VAR
+I v VAR
+I w VAR
+I x VAR
+I y VAR
+I z VAR
+P C
+E
+S
+I vehicle UNION STRING name INT wheels BOOL electric
+I bicycle UNION INT gears BOOL hydrolic STRING brand
+I truck STRUCT INT loadCapacity STRING company
+I plane STRUCT STRING airline INT seats
+I jet STRUCT STRING model INT speed
+I train STRUCT STRING type INT coaches
+P A
+D x
+D y
+D z
+D num1
+D num2
+D result
+L x
+L y
+L plane
+P A
+Q
