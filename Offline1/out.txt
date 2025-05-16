@@ -1,18 +1,18 @@
 	ScopeTable# 1 created
 Cmd 1: I x VAR
-	Inserted in ScopeTable# 1 at position 15, 1
+	Inserted in ScopeTable# 1 at position 1, 1
 Cmd 2: I y VAR
-	Inserted in ScopeTable# 1 at position 12, 1
+	Inserted in ScopeTable# 1 at position 2, 1
 Cmd 3: I z VAR
-	Inserted in ScopeTable# 1 at position 17, 1
+	Inserted in ScopeTable# 1 at position 3, 1
 Cmd 4: I num1 VAR
-	Inserted in ScopeTable# 1 at position 16, 1
+	Inserted in ScopeTable# 1 at position 8, 1
 Cmd 5: I num2 VAR
-	Inserted in ScopeTable# 1 at position 12, 2
+	Inserted in ScopeTable# 1 at position 9, 1
 Cmd 6: I calculate FUNCTION INT INT INT
-	Inserted in ScopeTable# 1 at position 4, 1
+	Inserted in ScopeTable# 1 at position 3, 2
 Cmd 7: I result VAR
-	Inserted in ScopeTable# 1 at position 17, 2
+	Inserted in ScopeTable# 1 at position 18, 1
 Cmd 8: S
 	ScopeTable# 2 created
 Cmd 9: I data STRUCT INT id STRING name BOOL active
@@ -205,24 +205,24 @@ Cmd 62: P A
 		19--> <data,STRUCT,{(INT,id),(STRING,name),(BOOL,active)}> 
 		20--> 
 			ScopeTable# 1
-			1--> 
-			2--> 
-			3--> 
-			4--> <calculate,FUNCTION,INT<==(INT,INT)> 
+			1--> <x,VAR> 
+			2--> <y,VAR> 
+			3--> <z,VAR> <calculate,FUNCTION,INT<==(INT,INT)> 
+			4--> 
 			5--> 
 			6--> 
 			7--> 
-			8--> 
-			9--> 
+			8--> <num1,VAR> 
+			9--> <num2,VAR> 
 			10--> 
 			11--> 
-			12--> <y,VAR> <num2,VAR> 
+			12--> 
 			13--> 
 			14--> 
-			15--> <x,VAR> 
-			16--> <num1,VAR> 
-			17--> <z,VAR> <result,VAR> 
-			18--> 
+			15--> 
+			16--> 
+			17--> 
+			18--> <result,VAR> 
 			19--> 
 			20--> 
 Cmd 63: D x
@@ -238,9 +238,9 @@ Cmd 67: D num2
 Cmd 68: D result
 	Not found in the current ScopeTable
 Cmd 69: L x
-	'x' found in ScopeTable# 1 at position 15, 1
+	'x' found in ScopeTable# 1 at position 1, 1
 Cmd 70: L y
-	'y' found in ScopeTable# 1 at position 12, 1
+	'y' found in ScopeTable# 1 at position 2, 1
 Cmd 71: L plane
 	'plane' found in ScopeTable# 4 at position 13, 1
 Cmd 72: P A
@@ -287,24 +287,24 @@ Cmd 72: P A
 		19--> <data,STRUCT,{(INT,id),(STRING,name),(BOOL,active)}> 
 		20--> 
 			ScopeTable# 1
-			1--> 
-			2--> 
-			3--> 
-			4--> <calculate,FUNCTION,INT<==(INT,INT)> 
+			1--> <x,VAR> 
+			2--> <y,VAR> 
+			3--> <z,VAR> <calculate,FUNCTION,INT<==(INT,INT)> 
+			4--> 
 			5--> 
 			6--> 
 			7--> 
-			8--> 
-			9--> 
+			8--> <num1,VAR> 
+			9--> <num2,VAR> 
 			10--> 
 			11--> 
-			12--> <y,VAR> <num2,VAR> 
+			12--> 
 			13--> 
 			14--> 
-			15--> <x,VAR> 
-			16--> <num1,VAR> 
-			17--> <z,VAR> <result,VAR> 
-			18--> 
+			15--> 
+			16--> 
+			17--> 
+			18--> <result,VAR> 
 			19--> 
 			20--> 
 Cmd 73: Q
