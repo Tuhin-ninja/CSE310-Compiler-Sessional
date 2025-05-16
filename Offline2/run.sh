@@ -41,4 +41,4 @@ do
     echo "-------------------------------"
 done
 
-rm -f temp_log_actual.txt temp_log_expected.txt temp_token_actual.txt temp_token_expected.txt
+rm -f temp_log_actual.txt temp_log_expected.txt temp_token_actual.txt temp_token_expected.txt compiler 
