@@ -1,1 +1,2 @@
-<ID, ijk> 
+<ID, string> <ID, abc> <ASSIGNOP, => <STRING, khalid
+tuhin> 
