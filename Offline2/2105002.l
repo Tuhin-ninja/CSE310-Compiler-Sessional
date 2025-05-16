@@ -259,47 +259,47 @@ UNRECOGNIZED .
 '\\t' {
     char c = convertEscapeChar(yytext);
     char str[2] = {c, '\0'};
-    log_token("<CONST_CHAR>", str);
+    fprintf(log_file, "Line no %d: Token <CONST_CHAR> Lexeme %s found --> <CONST_CHAR, %s>\n\n", line_no, yytext, str);
     fprintf(token_file, "<CONST_CHAR, %s> ", str);
-    insert_symbol(log_file,str, "CONST_CHAR");
+    insert_symbol(log_file,yytext, "CONST_CHAR");
 }
 
 '\\a' {
     char c = convertEscapeChar(yytext);
     char str[2] = {c, '\0'};
-    log_token("<CONST_CHAR>", str);
+    fprintf(log_file, "Line no %d: Token <CONST_CHAR> Lexeme %s found --> <CONST_CHAR, %s>\n\n", line_no, yytext, str);
     fprintf(token_file, "<CONST_CHAR, %s> ", str);
-    insert_symbol(log_file,str, "CONST_CHAR");
+    insert_symbol(log_file,yytext, "CONST_CHAR");
 }
 '\\f' {
     char c = convertEscapeChar(yytext);
     char str[2] = {c, '\0'};
-    log_token("<CONST_CHAR>", str);
+    fprintf(log_file, "Line no %d: Token <CONST_CHAR> Lexeme %s found --> <CONST_CHAR, %s>\n\n", line_no, yytext, str);
     fprintf(token_file, "<CONST_CHAR, %s> ", str);
-    insert_symbol(log_file,str, "CONST_CHAR");
+    insert_symbol(log_file,yytext, "CONST_CHAR");
 }
 '\\b' {
     char c = convertEscapeChar(yytext);
     char str[2] = {c, '\0'};
-    log_token("<CONST_CHAR>", str);
+    fprintf(log_file, "Line no %d: Token <CONST_CHAR> Lexeme %s found --> <CONST_CHAR, %s>\n\n", line_no, yytext, str);
     fprintf(token_file, "<CONST_CHAR, %s> ", str);
-    insert_symbol(log_file,str, "CONST_CHAR");
+    insert_symbol(log_file,yytext, "CONST_CHAR");
 }
 
 '\\0' {
     char c = convertEscapeChar(yytext);
     char str[2] = {c, '\0'};
-    log_token("<CONST_CHAR>", str);
+    fprintf(log_file, "Line no %d: Token <CONST_CHAR> Lexeme %s found --> <CONST_CHAR, %s>\n\n", line_no, yytext, str);
     fprintf(token_file, "<CONST_CHAR, %s> ", str);
-    insert_symbol(log_file,str, "CONST_CHAR");
+    insert_symbol(log_file,yytext, "CONST_CHAR");
 }
 
 '\\v' {
     char c = convertEscapeChar(yytext);
     char str[2] = {c, '\0'};
-    log_token("<CONST_CHAR>", str);
+    fprintf(log_file, "Line no %d: Token <CONST_CHAR> Lexeme %s found --> <CONST_CHAR, %s>\n\n", line_no, yytext, str);
     fprintf(token_file, "<CONST_CHAR, %s> ", str);
-    insert_symbol(log_file,str, "CONST_CHAR");
+    insert_symbol(log_file,yytext, "CONST_CHAR");
 }
 
 \'([^\\'\n]|\\[nt\\'\"0abfrv])\' { 
@@ -545,7 +545,7 @@ UNRECOGNIZED .
 }
 
 {UNFINISHED_COMMENT} {
-    int len = strlen(yytext);
+   int len = strlen(yytext);
    int count = 1;
     for (int i = 0; i < len-1; i++) {
        if (yytext[i] == '\n') {
