@@ -1219,7 +1219,7 @@ YY_RULE_SETUP
     char c = convertEscapeChar(yytext);
     char str[2] = {c, '\0'};
     log_token("<CONST_CHAR>", str);
-    fprintf(token_file, "<CHAR_CONST, %s> ", str);
+    fprintf(token_file, "<CONST_CHAR, %s> ", str);
     insert_symbol(log_file,str, "CONST_CHAR");
 }
 	YY_BREAK
@@ -1230,7 +1230,7 @@ YY_RULE_SETUP
     char c = convertEscapeChar(yytext);
     char str[2] = {c, '\0'};
     log_token("<CONST_CHAR>", str);
-    fprintf(token_file, "<CHAR_CONST, %s> ", str);
+    fprintf(token_file, "<CONST_CHAR, %s> ", str);
     insert_symbol(log_file,str, "CONST_CHAR");
 }
 	YY_BREAK
@@ -1241,7 +1241,7 @@ YY_RULE_SETUP
     char c = convertEscapeChar(yytext);
     char str[2] = {c, '\0'};
     fprintf(log_file, "Line no %d: Token <CONST_CHAR> Lexeme %s found --> <CONST_CHAR, %s>\n\n", line_no, yytext, str);
-    fprintf(token_file, "<CHAR_CONST, %s> ", str);
+    fprintf(token_file, "<CONST_CHAR, %s> ", str);
     insert_symbol(log_file,yytext, "CONST_CHAR");
 }
 	YY_BREAK
@@ -1252,7 +1252,7 @@ YY_RULE_SETUP
     char c = convertEscapeChar(yytext);
     char str[2] = {c, '\0'};
     fprintf(log_file, "Line no %d: Token <CONST_CHAR> Lexeme %s found --> <CONST_CHAR, %s>\n\n", line_no, yytext, str);
-    fprintf(token_file, "<CHAR_CONST, %s> ", str);
+    fprintf(token_file, "<CONST_CHAR, %s> ", str);
     insert_symbol(log_file,yytext, "CONST_CHAR");
 }
 	YY_BREAK
@@ -1263,7 +1263,7 @@ YY_RULE_SETUP
     char c = convertEscapeChar(yytext);
     char str[2] = {c, '\0'};
     log_token("<CONST_CHAR>", str);
-    fprintf(token_file, "<CHAR_CONST, %s> ", str);
+    fprintf(token_file, "<CONST_CHAR, %s> ", str);
     insert_symbol(log_file,str, "CONST_CHAR");
 }
 	YY_BREAK
@@ -1274,7 +1274,7 @@ YY_RULE_SETUP
     char c = convertEscapeChar(yytext);
     char str[2] = {c, '\0'};
     log_token("<CONST_CHAR>", str);
-    fprintf(token_file, "<CHAR_CONST, %s> ", str);
+    fprintf(token_file, "<CONST_CHAR, %s> ", str);
     insert_symbol(log_file,str, "CONST_CHAR");
 }
 	YY_BREAK
@@ -1285,7 +1285,7 @@ YY_RULE_SETUP
     char c = convertEscapeChar(yytext);
     char str[2] = {c, '\0'};
     log_token("<CONST_CHAR>", str);
-    fprintf(token_file, "<CHAR_CONST, %s> ", str);
+    fprintf(token_file, "<CONST_CHAR, %s> ", str);
     insert_symbol(log_file,str, "CONST_CHAR");
 }
 	YY_BREAK
@@ -1296,7 +1296,7 @@ YY_RULE_SETUP
     char c = convertEscapeChar(yytext);
     char str[2] = {c, '\0'};
     log_token("<CONST_CHAR>", str);
-    fprintf(token_file, "<CHAR_CONST, %s> ", str);
+    fprintf(token_file, "<CONST_CHAR, %s> ", str);
     insert_symbol(log_file,str, "CONST_CHAR");
 }
 	YY_BREAK
@@ -1307,7 +1307,7 @@ YY_RULE_SETUP
     char c = convertEscapeChar(yytext);
     char str[2] = {c, '\0'};
     log_token("<CONST_CHAR>", str);
-    fprintf(token_file, "<CHAR_CONST, %s> ", str);
+    fprintf(token_file, "<CONST_CHAR, %s> ", str);
     insert_symbol(log_file,str, "CONST_CHAR");
 }
 	YY_BREAK
@@ -1318,7 +1318,7 @@ YY_RULE_SETUP
     char c = convertEscapeChar(yytext);
     char str[2] = {c, '\0'};
     log_token("<CONST_CHAR>", str);
-    fprintf(token_file, "<CHAR_CONST, %s> ", str);
+    fprintf(token_file, "<CONST_CHAR, %s> ", str);
     insert_symbol(log_file,str, "CONST_CHAR");
 }
 	YY_BREAK
@@ -1329,7 +1329,7 @@ YY_RULE_SETUP
     char c = convertEscapeChar(yytext);
     char str[2] = {c, '\0'};
     fprintf(log_file, "Line no %d: Token <CONST_CHAR> Lexeme %s found --> <CONST_CHAR, %s>\n\n", line_no, yytext, str);
-    fprintf(token_file, "<CHAR_CONST, %s> ", str);
+    fprintf(token_file, "<CONST_CHAR, %s> ", str);
     insert_symbol(log_file,yytext, "CONST_CHAR");
 }
 	YY_BREAK
@@ -2717,9 +2717,6 @@ int main(int argc, char *argv[]) {
     print_symbol_table(log_file);
     fprintf(log_file, "Total lines: %d\n", line_no);
     fprintf(log_file, "Total errors: %d\n", error_count);
-
-    // Optional: Add a newline at the end of the token file
-    fprintf(token_file, "\n");
 
     fclose(input_file);
     fclose(log_file);
