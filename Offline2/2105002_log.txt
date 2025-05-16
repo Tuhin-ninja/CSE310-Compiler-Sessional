@@ -54,5 +54,5 @@ def
 ScopeTable # 1
 4 --> < ijk : ID >
 
-Total lines: 18
+Total lines: 19
 Total errors: 18

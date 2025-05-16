@@ -1645,7 +1645,7 @@ YY_RULE_SETUP
 #line 547 "2105002.l"
 {
     int len = strlen(yytext);
-   int count = 0;
+   int count = 1;
     for (int i = 0; i < len-1; i++) {
        if (yytext[i] == '\n') {
           count++;
