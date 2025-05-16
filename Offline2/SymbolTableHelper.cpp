@@ -5,7 +5,6 @@ SymbolTable *symbolTable = nullptr;
 
 void init_symbol_table()
 {
-    static std::ofstream logout("based.txt"); // dummy log for constructor
     symbolTable = new SymbolTable(7, "hash");
 }
 
