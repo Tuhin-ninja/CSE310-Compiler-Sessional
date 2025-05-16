@@ -1202,7 +1202,6 @@ YY_RULE_SETUP
         s2++;
     }
     log_token("<STRING>", yytext);
-    fprintf(log_file,"bismillah");
     char *result = processString(yytext);
     fprintf(token_file,"<STRING, %s> ", result);
 
@@ -1210,7 +1209,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 245 "2105002.l"
+#line 244 "2105002.l"
 {
     log_token("<ADDOP>", yytext);
     fprintf(token_file, "<ADDOP, %s> ", yytext);
@@ -1218,7 +1217,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 250 "2105002.l"
+#line 249 "2105002.l"
 {
     log_token("<MULOP>", yytext);
     fprintf(token_file, "<MULOP, %s> ", yytext);
@@ -1226,7 +1225,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 255 "2105002.l"
+#line 254 "2105002.l"
 {
     log_token("<INCOP>", yytext);
     fprintf(token_file, "<INCOP, %s> ", yytext);
@@ -1234,7 +1233,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 260 "2105002.l"
+#line 259 "2105002.l"
 {
     log_token("<RELOP>", yytext);
     fprintf(token_file, "<RELOP, %s> ", yytext);
@@ -1242,7 +1241,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 265 "2105002.l"
+#line 264 "2105002.l"
 {
     log_token("<ASSIGNOP>", yytext);
     fprintf(token_file, "<ASSIGNOP, %s> ", yytext);
@@ -1250,7 +1249,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 270 "2105002.l"
+#line 269 "2105002.l"
 {
     log_token("<LOGICOP>", yytext);
     fprintf(token_file, "<LOGICOP, %s> ", yytext);
@@ -1258,7 +1257,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 275 "2105002.l"
+#line 274 "2105002.l"
 {
     log_token("<NOT>", yytext);
     fprintf(token_file, "<NOT, %s> ", yytext);
@@ -1266,7 +1265,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 280 "2105002.l"
+#line 279 "2105002.l"
 {
     log_token("<LPAREN>", yytext);
     fprintf(token_file, "<LPAREN, %s> ", yytext);
@@ -1274,7 +1273,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 285 "2105002.l"
+#line 284 "2105002.l"
 {
     log_token("<RPAREN>", yytext);
     fprintf(token_file, "<RPAREN, %s> ", yytext);
@@ -1282,7 +1281,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 290 "2105002.l"
+#line 289 "2105002.l"
 {
     log_token("<LCURL>", yytext);
     fprintf(token_file, "<LCURL, %s> ", yytext);
@@ -1291,7 +1290,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 296 "2105002.l"
+#line 295 "2105002.l"
 {
     log_token("<RCURL>", yytext);
     fprintf(token_file, "<RCURL, %s> ", yytext);
@@ -1300,7 +1299,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 302 "2105002.l"
+#line 301 "2105002.l"
 {
     log_token("<LTHIRD>", yytext);
     fprintf(token_file, "<LTHIRD, %s> ", yytext);
@@ -1308,7 +1307,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 307 "2105002.l"
+#line 306 "2105002.l"
 {
     log_token("<RTHIRD>", yytext);
     fprintf(token_file, "<RTHIRD, %s> ", yytext);
@@ -1316,7 +1315,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 312 "2105002.l"
+#line 311 "2105002.l"
 {
     log_token("<COMMA>", yytext);
     fprintf(token_file, "<COMMA, %s> ", yytext);
@@ -1324,7 +1323,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 317 "2105002.l"
+#line 316 "2105002.l"
 {
     log_token("<SEMICOLON>", yytext);
     fprintf(token_file, "<SEMICOLON, %s> ", yytext);
@@ -1332,7 +1331,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 323 "2105002.l"
+#line 322 "2105002.l"
 {
     log_token("<ID>", yytext);
     fprintf(token_file, "<ID, %s> ", yytext);
@@ -1342,7 +1341,7 @@ YY_RULE_SETUP
 case 49:
 /* rule 49 can match eol */
 YY_RULE_SETUP
-#line 329 "2105002.l"
+#line 328 "2105002.l"
 {
     int count = 0;
      for (int i = 0; yytext[i]; i++) {
@@ -1361,7 +1360,7 @@ YY_RULE_SETUP
 case 50:
 /* rule 50 can match eol */
 YY_RULE_SETUP
-#line 344 "2105002.l"
+#line 343 "2105002.l"
 {
     for (int i = 0; yytext[i]; i++) {
         if (yytext[i] == '\n') line_no++;
@@ -1371,7 +1370,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 351 "2105002.l"
+#line 350 "2105002.l"
 {
     fprintf(log_file, "Error at line no %d: Too many decimal points %s\n\n\n", line_no,yytext);
     error_count++;  
@@ -1379,7 +1378,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 356 "2105002.l"
+#line 355 "2105002.l"
 {
     fprintf(log_file, "Error at line no %d: Ill formed number %s\n\n\n", line_no,yytext);
     error_count++;
@@ -1387,7 +1386,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 361 "2105002.l"
+#line 360 "2105002.l"
 {
     report_error("Invalid prefix on ID or invalid suffix on Number", yytext);
 }
@@ -1395,7 +1394,7 @@ YY_RULE_SETUP
 case 54:
 /* rule 54 can match eol */
 YY_RULE_SETUP
-#line 365 "2105002.l"
+#line 364 "2105002.l"
 {
    int len = strlen(yytext);
    int count = 0;
@@ -1411,7 +1410,7 @@ YY_RULE_SETUP
 case 55:
 /* rule 55 can match eol */
 YY_RULE_SETUP
-#line 377 "2105002.l"
+#line 376 "2105002.l"
 {
    int len = strlen(yytext);
    int count = 1;
@@ -1426,13 +1425,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 389 "2105002.l"
+#line 388 "2105002.l"
 {
     report_error("Unrecognized character", yytext);
 }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 393 "2105002.l"
+#line 392 "2105002.l"
 {
     if (yytext && *yytext) {
         fprintf(log_file, "DEBUG: Forcing reprocessing of remaining input\n");
@@ -1443,10 +1442,10 @@ case YY_STATE_EOF(INITIAL):
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 401 "2105002.l"
+#line 400 "2105002.l"
 ECHO;
 	YY_BREAK
-#line 1449 "lex.yy.c"
+#line 1448 "lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2449,7 +2448,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 401 "2105002.l"
+#line 400 "2105002.l"
 
 
 int main(int argc, char *argv[]) {
