@@ -105,21 +105,7 @@ char convertEscapeChar(const char *lexeme) {
 }
 
 
-// Helper function to convert E to e in floating-point lexemes
-char *convertFloatLexeme(const char *lexeme) {
-    if (!lexeme) return NULL;
-    char *result = strdup(lexeme);
-    if (!result) {
-        fprintf(log_file, "ERROR: Memory allocation failed in convertFloatLexeme\n");
-        return NULL;
-    }
-    for (int i = 0; result[i]; i++) {
-        if (result[i] == 'E') {
-            
-        }
-    }
-    return result;
-}
+
 
 %}
 
@@ -142,9 +128,11 @@ MULTI_DECIMAL {DIGIT}+(?:\.{DIGIT}*){2,}
 ILL_NUMBER {DIGIT}+[Ee][+-]?{DIGIT}*\.{DIGIT}*|{DIGIT}+[Ee][+-]?{DIGIT}*\.[Ee]
 INVALID_NUM_SUFFIX {INTEGER}([a-dA-Df-zF-Z_]+|[a-dA-Df-zF-Z_]{ALNUM}*)
 UNFINISHED_CHAR \'([^\\'\n]|\\.)?(\n|$)
-CHAR   '[^'\\\a\n\r\b\v\t\f\0]'
+CHAR   \'([^\\'\n]|\\[nt\\'\"0abfrv])\'
+STRING (\")([^\\\n\"]*(\\(({NEWLINE})|({ALNUM})|[\\\"\']))*)*(\")
 MULTI_CHAR \'([^'\n\\]|\\.){2,}\'
 UNFINISHED_COMMENT "/*"([^*]|[*][^*/\n]|[\\][\n])*
+UNRECOGNIZED_ESCAPE \'\\[^'nt\\afbrv0]'
 UNRECOGNIZED .
 
 %%
@@ -185,12 +173,9 @@ UNRECOGNIZED .
 
 
 {FLOAT} {
-    char *modified_lexeme = convertFloatLexeme(yytext);
-    if (!modified_lexeme) return 1;
-    log_token("<CONST_FLOAT>", modified_lexeme);
-    fprintf(token_file, "<CONST_FLOAT, %s> ", modified_lexeme);
-    insert_symbol(log_file,modified_lexeme, "CONST_FLOAT");
-    free(modified_lexeme);
+    log_token("<CONST_FLOAT>", yytext);
+    fprintf(token_file, "<CONST_FLOAT, %s> ", yytext);
+    insert_symbol(log_file,yytext, "CONST_FLOAT");
 }
 
 {INTEGER} {
@@ -210,15 +195,15 @@ UNRECOGNIZED .
  }
 
 
-'[^'\\][^'\n]+' { 
+{MULTI_CHAR} { 
     fprintf(log_file, "Error at line no %d: Multi character constant error %s\n\n\n", line_no,yytext);
     error_count++;
 }
 
-'\\[^'nt\\afbrv0]' { report_error("Unrecognized escape sequence in character constant", yytext); }
+{UNRECOGNIZED_ESCAPE} { report_error("Unrecognized escape sequence in character constant", yytext); }
 
 
-\'([^\\'\n]|\\[nt\\'\"0abfrv])\' { 
+{CHAR} { 
     char c = convertEscapeChar(yytext);
     char str[2] = {c, '\0'};
     fprintf(log_file, "Line no %d: Token <CONST_CHAR> Lexeme %s found --> <CONST_CHAR, %s>\n\n", line_no, yytext, str);
@@ -226,7 +211,7 @@ UNRECOGNIZED .
     insert_symbol(log_file,yytext, "CONST_CHAR");
 }
 
-(\")([^\\\n\"]*(\\(({NEWLINE})|({ALNUM})|[\\\"\']))*)*(\") {
+{STRING} {
     char *s2 = yytext;
     int countnewline = 0;
     while(*s2!='\0'){
@@ -238,7 +223,6 @@ UNRECOGNIZED .
     log_token("<STRING>", yytext);
     char *result = processString(yytext);
     fprintf(token_file,"<STRING, %s> ", result);
-
 }
 
 "+"|"-" {
